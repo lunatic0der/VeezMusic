@@ -97,9 +97,9 @@ async def generate_cover(requested_by, title, views, duration, thumbnail):
     img = Image.open("temp.png")
     draw = ImageDraw.Draw(img)
     font = ImageFont.truetype("etc/font.otf", 60)
-    draw.text((40, 550), f"Playing here....", (0, 0, 0), font=font)
+    draw.text((40, 550), f"Playing here...", (0, 0, 0), font=font)
     draw.text((40, 630),
-        f"{title}",
+        f"{title}...",
         (0, 0, 0),
         font=font,
     )
@@ -506,10 +506,10 @@ async def play(_, message: Message):
         keyboard = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton("🖱 ᴍᴇɴᴜ", callback_data="menu"),
-                    InlineKeyboardButton("🗑 ᴄʟᴏsᴇ", callback_data="cls"),
+                    InlineKeyboardButton("📚 Menu", callback_data="menu"),
+                    InlineKeyboardButton("🗑 Close", callback_data="cls"),
                 ],[
-                    InlineKeyboardButton("📣 ᴄʜᴀɴɴᴇʟ", url=f"https://t.me/{UPDATES_CHANNEL}")
+                    InlineKeyboardButton("⛑ Channel", url=f"https://t.me/{UPDATES_CHANNEL}")
                 ],
             ]
         )
@@ -553,10 +553,10 @@ async def play(_, message: Message):
         keyboard = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton("🖱 ᴍᴇɴᴜ", callback_data="menu"),
-                    InlineKeyboardButton("🗑 ᴄʟᴏsᴇ", callback_data="cls"),
+                    InlineKeyboardButton("📚 Menu", callback_data="menu"),
+                    InlineKeyboardButton("🗑 Close", callback_data="cls"),
                 ],[
-                    InlineKeyboardButton("📣 ᴄʜᴀɴɴᴇʟ", url=f"https://t.me/{UPDATES_CHANNEL}")
+                    InlineKeyboardButton("⛑ Channel", url=f"https://t.me/{UPDATES_CHANNEL}")
                 ],
             ]
         )
@@ -571,7 +571,7 @@ async def play(_, message: Message):
         ydl_opts = {"format": "bestaudio[ext=m4a]"}
         
         try:
-          results = YoutubeSearch(query, max_results=6).to_dict()
+          results = YoutubeSearch(query, max_results=5).to_dict()
         except:
           await lel.edit("**Masukan Judul Lagu yang ingin diputar**")
         # veez project
@@ -579,11 +579,11 @@ async def play(_, message: Message):
             toxxt = "⚡ **Silahkan Pilih lagu yang ingin Anda Putar:**\n\n"
             j = 0
             useer=user_name
-            emojilist = ["1️⃣","2️⃣","3️⃣","4️⃣","5️⃣","6️⃣"]
+            emojilist = ["1️⃣","2️⃣","3️⃣","4️⃣","5️⃣"]
             while j < 6:
-                toxxt += f"{emojilist[j]} [{results[j]['title'][:30]}](https://youtube.com{results[j]['url_suffix']})\n"
+                toxxt += f"{emojilist[j]} [{results[j]['title'][:30]}...](https://youtube.com{results[j]['url_suffix']})\n"
                 toxxt += f" ├ 💡 **Duration** - {results[j]['duration']}\n"
-                toxxt += f" └ ⚡ __Powered by {BOT_NAME}__\n\n"
+                toxxt += f" └ ⚡ __Powered by__ {BOT_NAME}\n\n"
                 j += 1            
             keyboard = InlineKeyboardMarkup(
                 [
@@ -595,9 +595,6 @@ async def play(_, message: Message):
                     [
                         InlineKeyboardButton("4️⃣", callback_data=f'plll 3|{query}|{user_id}'),
                         InlineKeyboardButton("5️⃣", callback_data=f'plll 4|{query}|{user_id}'),
-                    ],
-                    [
-                        InlineKeyboardButton("6️⃣", callback_data=f'plll 5|{query}|{user_id}'),
                     ],
                     [InlineKeyboardButton(text="🗑 Close", callback_data="cls")],
                 ]
