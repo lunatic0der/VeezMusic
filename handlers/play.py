@@ -573,7 +573,7 @@ async def play(_, message: Message):
         try:
           results = YoutubeSearch(query, max_results=6).to_dict()
         except:
-          await lel.edit("**Beri Judul Lagu untuk diputar**")
+          await lel.edit("**Masukan Judul Lagu yang ingin diputar**")
         # veez project
         try:
             toxxt = "⚡ **Silahkan Pilih lagu yang ingin Anda Putar:**\n\n"
@@ -602,17 +602,14 @@ async def play(_, message: Message):
                     [InlineKeyboardButton(text="🗑 Close", callback_data="cls")],
                 ]
             )
-            await message.reply_photo(
-                caption=toxxt,
-                reply_markup=keyboard
-            )
+            await lel.edit(toxxt,reply_markup=keyboard,disable_web_page_preview=True)
 
             await lel.delete()
             # veez project
             return
             # veez project
         except:
-            await lel.edit("__no more results to choose, starting to playing...__")
+            await lel.edit("__Tidak ada lagi hasil lagu untuk dipilih, mulai bermain...__")
                         
             # print(results)
             try:
@@ -657,8 +654,7 @@ async def play(_, message: Message):
         qeue.append(appendable)
         await message.reply_photo(
             photo="final.png",
-            caption=f"💡 **Track added to the queue**\n\n🏷 **Name:** [{title[:45]}]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {message.from_user.mention}\n" \
-                   +f"\n🔢 **Track Position:** » `{position}` «",
+            caption=f"💡 **Trek ditambahkan ke Posisi antrian {position}**\n\n🏷 **Nama:** [{title[:45]}]({url})\n⏱ **Durasi:** `{duration}`\n🎧 **Atas Permintaan:** {message.from_user.mention}",
             reply_markup=keyboard
         )
     else:
@@ -673,11 +669,11 @@ async def play(_, message: Message):
         try:
             callsmusic.pytgcalls.join_group_call(chat_id, file_path)
         except:
-            message.reply("**voice chat group not active, can't play a song.**")
+            message.reply("**Obrolan suara Grup tidak aktif, tidak dapat memutar lagu.**")
             return
         await message.reply_photo(
             photo="final.png",
-            caption=f"🏷 **Name:** [{title[:45]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n" \
+            caption=f"🏷 **Name:** [{title[:45]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Sedang Memutar`\n" \
                    +f"🎧 **Request by:** {message.from_user.mention}",
             reply_markup=keyboard
         )
@@ -694,11 +690,11 @@ async def lol_cb(b, cb):
     try:
         x,query,useer_id = typed_.split("|")      
     except:
-        await cb.message.edit("❌ song not found")
+        await cb.message.edit("❌ **Lagu Tidak ditemukan**")
         return
     useer_id = int(useer_id)
     if cb.from_user.id != useer_id:
-        await cb.answer("you are not people who requested this song !", show_alert=True)
+        await cb.answer("Anda bukan orang yang meminta lagu ini!", show_alert=True)
         return
     #await cb.message.edit("🔁 **processing...**")
     x=int(x)
