@@ -404,7 +404,7 @@ async def cbdelcmds(_, query: CallbackQuery):
             [
                 [
                     InlineKeyboardButton(
-                        "🏡 GO BACK", callback_data="cbback"
+                        "🏡 Kembali", callback_data="cbback"
                     )
                 ]
             ]

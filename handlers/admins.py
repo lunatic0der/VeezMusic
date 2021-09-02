@@ -27,7 +27,7 @@ async def _(bot: Client, cmd: Message):
     await handle_user_status(bot, cmd)
 
 # Back Button
-BACK_BUTTON = InlineKeyboardMarkup([[InlineKeyboardButton("🏠 go back", callback_data="cbback")]])
+BACK_BUTTON = InlineKeyboardMarkup([[InlineKeyboardButton("🏠 Kembali", callback_data="cbback")]])
 
 @Client.on_message(filters.text & ~filters.private)
 async def delcmd(_, message: Message):
@@ -44,7 +44,7 @@ async def update_admin(client, message):
     for u in new_ads:
         new_admins.append(u.user.id)
     admins[message.chat.id] = new_admins
-    await message.reply_text("✅ Bot **reloaded correctly !**\n✅ **Admin list** has been **updated !**")
+    await message.reply_text("✅ Bot **berhasil dimulai ulang!**\n\n• **Daftar admin** telah **diperbarui**")
 
 
 # Control Menu Of Player
@@ -53,33 +53,33 @@ async def update_admin(client, message):
 @authorized_users_only
 async def controlset(_, message: Message):
     await message.reply_text(
-        "**💡 opened music player control menu!**\n\n**💭 you can control the music player just by pressing one of the buttons below**",
+        "**💡 Membuka menu kontrol pemutar musik!**\n\n**💭 Anda dapat mengontrol pemutar musik hanya dengan menekan salah satu tombol di bawah ini**",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
-                        "⏸ pause", callback_data="cbpause"
+                        "⏸ Pause", callback_data="cbpause"
                     ),
                     InlineKeyboardButton(
-                        "▶️ resume", callback_data="cbresume"
+                        "▶️ Resume", callback_data="cbresume"
                     )
                 ],
                 [
                     InlineKeyboardButton(
-                        "⏩ skip", callback_data="cbskip"
+                        "⏩ Skip", callback_data="cbskip"
                     ),
                     InlineKeyboardButton(
-                        "⏹ end", callback_data="cbend"
+                        "⏹ End", callback_data="cbend"
                     )
                 ],
                 [
                     InlineKeyboardButton(
-                        "⛔ anti cmd", callback_data="cbdelcmds"
+                        "⛔ Anti cmd", callback_data="cbdelcmds"
                     )
                 ],
                 [
                     InlineKeyboardButton(
-                        "🛄 group tools", callback_data="cbgtools"
+                        "🛄 Group tools", callback_data="cbgtools"
                     )
                 ],
                 [
@@ -100,10 +100,10 @@ async def pause(_, message: Message):
     if (chat_id not in callsmusic.pytgcalls.active_calls) or (
         callsmusic.pytgcalls.active_calls[chat_id] == "paused"
     ):
-        await message.reply_text("❗ nothing in streaming!")
+        await message.reply_text("❗ **Tidak ada Lagu yang sedang diputar!**")
     else:
         callsmusic.pytgcalls.pause_stream(chat_id)
-        await message.reply_text("▶️ music paused!")
+        await message.reply_text("▶️ **Paused!**")
 
 
 @Client.on_message(command("resume") & other_filters)
@@ -114,10 +114,10 @@ async def resume(_, message: Message):
     if (chat_id not in callsmusic.pytgcalls.active_calls) or (
         callsmusic.pytgcalls.active_calls[chat_id] == "playing"
     ):
-        await message.reply_text("❗ nothing is paused!")
+        await message.reply_text("❗ **Tidak ada Lagu yang sedang dijeda!**")
     else:
         callsmusic.pytgcalls.resume_stream(chat_id)
-        await message.reply_text("⏸ music resumed!")
+        await message.reply_text("⏸ **Resumed!**")
 
 
 @Client.on_message(command("end") & other_filters)
@@ -126,7 +126,7 @@ async def resume(_, message: Message):
 async def stop(_, message: Message):
     chat_id = get_chat_id(message.chat)
     if chat_id not in callsmusic.pytgcalls.active_calls:
-        await message.reply_text("❗ nothing in streaming!")
+        await message.reply_text("❗ **Tidak ada Lagu yang sedang diputar!**")
     else:
         try:
             queues.clear(chat_id)
@@ -134,7 +134,7 @@ async def stop(_, message: Message):
             pass
 
         callsmusic.pytgcalls.leave_group_call(chat_id)
-        await message.reply_text("⏹ streaming ended!")
+        await message.reply_text("❌ **Memberhentikan Lagu!**")
 
 
 @Client.on_message(command("skip") & other_filters)
@@ -144,7 +144,7 @@ async def skip(_, message: Message):
     global que
     chat_id = get_chat_id(message.chat)
     if chat_id not in callsmusic.pytgcalls.active_calls:
-        await message.reply_text("❗ nothing in streaming!")
+        await message.reply_text("❗ **Tidak ada Lagu Selanjutnya untuk dilewati!**")
     else:
         queues.task_done(chat_id)
 
@@ -160,7 +160,7 @@ async def skip(_, message: Message):
         skip = qeue.pop(0)
     if not qeue:
         return
-    await message.reply_text(f"⫸ skipped : **{skip[0]}**\n⫸ now playing : **{qeue[0][0]}**")
+    await message.reply_text(f"➥ Melewati Lagu : **{skip[0]}**\n➥ Sekarang Memutar Lagu : **{qeue[0][0]}**")
 
 
 @Client.on_message(command("auth") & other_filters)
@@ -200,26 +200,26 @@ async def deautenticate(client, message):
 @authorized_users_only
 async def delcmdc(_, message: Message):
     if len(message.command) != 2:
-        await message.reply_text("read the /help message to know how to use this command")
+        await message.reply_text("**Ketik** `/help` **untuk mengetahui cara menggunakan perintah ini**")
         return
     status = message.text.split(None, 1)[1].strip()
     status = status.lower()
     chat_id = message.chat.id
     if status == "on":
         if await delcmd_is_on(message.chat.id):
-            await message.reply_text("✅ already activated")
+            await message.reply_text("✅ **Anda sudah mengaktifkan Layanan Ini**")
             return
         else:
             await delcmd_on(chat_id)
             await message.reply_text(
-                "🟢 activated successfully"
+                "🟢 **Berhasil Diaktifkan Hapus Fitur Perintah Untuk Obrolan Ini**"
             )
     elif status == "off":
         await delcmd_off(chat_id)
-        await message.reply_text("🔴 disabled successfully")
+        await message.reply_text("🔴 **Berhasil Dinonaktifkan Hapus Fitur Perintah Untuk Obrolan Ini**")
     else:
         await message.reply_text(
-            "read the /help message to know how to use this command"
+            "**Ketik** `/help` **untuk mengetahui cara menggunakan perintah ini**"
         )
 
 
