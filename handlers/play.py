@@ -603,8 +603,6 @@ async def play(_, message: Message):
                 ]
             )
             await lel.edit(toxxt,reply_markup=keyboard,disable_web_page_preview=True)
-
-            await lel.delete()
             # veez project
             return
             # veez project
