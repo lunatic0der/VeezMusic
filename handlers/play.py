@@ -579,8 +579,8 @@ async def play(_, message: Message):
             toxxt = "⚡ **Silahkan Pilih lagu yang ingin Anda Putar:**\n\n"
             j = 0
             useer=user_name
-            emojilist = ["1️⃣","2️⃣","3️⃣","4️⃣","5️⃣"]
-            while j < 6:
+            emojilist = ["1️⃣","2️⃣","3️⃣","4️⃣","5️⃣",]
+            while j < 5:
                 toxxt += f"{emojilist[j]} [{results[j]['title'][:30]}...](https://youtube.com{results[j]['url_suffix']})\n"
                 toxxt += f" ├ 💡 **Duration** - {results[j]['duration']}\n"
                 toxxt += f" └ ⚡ __Powered by__ {BOT_NAME}\n\n"
@@ -697,7 +697,7 @@ async def lol_cb(b, cb):
         useer_name = cb.message.reply_to_message.from_user.first_name
     except:
         useer_name = cb.message.from_user.first_name
-    results = YoutubeSearch(query, max_results=6).to_dict()
+    results = YoutubeSearch(query, max_results=5).to_dict()
     resultss=results[x]["url_suffix"]
     title=results[x]["title"][:25]
     thumbnail=results[x]["thumbnails"][0]
