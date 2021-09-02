@@ -70,13 +70,14 @@ async def help(client: Client, message: Message):
     )
 
 @Client.on_message(command(["help", f"help@{BOT_USERNAME}"]) & filters.private & ~filters.edited)
+@sudo_users_only
 async def help_(client: Client, message: Message):
     await message.reply_text(
         f"""<b>💡 Hello {message.from_user.mention} selamat datang di menu bantuan !</b>
 
 **di menu ini anda bisa membuka beberapa menu perintah yang tersedia, di setiap menu perintah juga ada penjelasan singkat dari masing-masing perintah**
 
-⚡ __Powered by {BOT_NAME} A.I__""",
+⚡ __Powered by__ {BOT_NAME}""",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
