@@ -16,7 +16,7 @@ from callsmusic import callsmusic
 from callsmusic.queues import queues
 from config import LOG_CHANNEL, OWNER_ID, BOT_USERNAME, COMMAND_PREFIXES
 from helpers.database import db, dcmdb, Database
-from helpers.dbtools import handle_user_status, delcmd_is_on, delcmd_on, delcmd_off
+from helpers.dbtools import handle_user_status
 from helpers.helper_functions.admin_check import admin_check
 from helpers.helper_functions.extract_user import extract_user
 from helpers.helper_functions.string_handling import extract_time
@@ -28,12 +28,6 @@ async def _(bot: Client, cmd: Message):
 
 # Back Button
 BACK_BUTTON = InlineKeyboardMarkup([[InlineKeyboardButton("🏠 Kembali", callback_data="cbback")]])
-
-@Client.on_message(filters.text & ~filters.private)
-async def delcmd(_, message: Message):
-    if await delcmd_is_on(message.chat.id) and message.text.startswith("/") or message.text.startswith("!"):
-        await message.delete()
-    await message.continue_propagation()
 
 
 @Client.on_message(filters.command("reload"))
@@ -193,34 +187,6 @@ async def deautenticate(client, message):
         await message.reply("🔴 user deauthorized.\n\nfrom now that's user can't use the admin commands.")
     else:
         await message.reply("✅ user already deauthorized!")
-
-
-# this is a anti cmd feature
-@Client.on_message(command(["delcmd", f"delcmd@{BOT_USERNAME}"]) & ~filters.private)
-@authorized_users_only
-async def delcmdc(_, message: Message):
-    if len(message.command) != 2:
-        await message.reply_text("**Ketik** `/help` **untuk mengetahui cara menggunakan perintah ini**")
-        return
-    status = message.text.split(None, 1)[1].strip()
-    status = status.lower()
-    chat_id = message.chat.id
-    if status == "on":
-        if await delcmd_is_on(message.chat.id):
-            await message.reply_text("✅ **Anda sudah mengaktifkan Layanan Ini**")
-            return
-        else:
-            await delcmd_on(chat_id)
-            await message.reply_text(
-                "🟢 **Berhasil Diaktifkan Hapus Fitur Perintah Untuk Obrolan Ini**"
-            )
-    elif status == "off":
-        await delcmd_off(chat_id)
-        await message.reply_text("🔴 **Berhasil Dinonaktifkan Hapus Fitur Perintah Untuk Obrolan Ini**")
-    else:
-        await message.reply_text(
-            "**Ketik** `/help` **untuk mengetahui cara menggunakan perintah ini**"
-        )
 
 
 # music player callbacks (control by buttons feature)
