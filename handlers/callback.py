@@ -200,10 +200,18 @@ async def cbsudo(_, query: CallbackQuery):
     await query.edit_message_text(
         f"""<b>🏮 ini perintah untuk pengguna sudo bot</b>
 
+
+/userbotleaveall - order the assistant to leave from all group
+/gcast - send a broadcast message trought the assistant
+/stats - show the bot statistic
+/rmd - remove all downloaded files
+/clean - Remove all raw files
+
 /userbotleaveall - perintahkan asisten untuk keluar dari semua grup
 /gcast - mengirim pesan siaran melalui asisten
 /stats - tampilkan statistik bot
 /rmd - hapus semua file yang diunduh
+
 
 ⚡ __Powered by {BOT_NAME}__""",
         reply_markup=InlineKeyboardMarkup(

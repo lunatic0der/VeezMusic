@@ -53,24 +53,28 @@ async def rem(client, message):
             f"<b>Pengguna tidak dapat meninggalkan grup Anda! Mungkin menunggu floodwaits."
             "\n\nAtau keluarkan saya secara manual dari ke Grup Anda</b>",
         )
+
         return
-    
+
+
 @Client.on_message(command(["userbotleaveall", f"userbotleaveall@{BOT_USERNAME}"]))
 async def bye(client, message):
-    if message.from_user.id in SUDO_USERS:
-        left=0
-        failed=0
-        lol = await message.reply("Assistant Leaving all chats")
-        async for dialog in USER.iter_dialogs():
-            try:
-                await USER.leave_chat(dialog.chat.id)
-                left = left+1
-                await lol.edit(f"Assistant leaving... Left: {left} chats. Failed: {failed} chats.")
-            except:
-                failed=failed+1
-                await lol.edit(f"Assistant leaving... Left: {left} chats. Failed: {failed} chats.")
-            await asyncio.sleep(0.7)
-        await client.send_message(message.chat.id, f"Left {left} chats. Failed {failed} chats.")
+    if message.from_user.id not in SUDO_USERS:
+        return
+
+    left=0
+    failed=0
+    lol = await message.reply("Assistant Leaving all chats")
+    async for dialog in USER.iter_dialogs():
+        try:
+            await USER.leave_chat(dialog.chat.id)
+            left += 1
+            await lol.edit(f"Assistant leaving... Left: {left} chats. Failed: {failed} chats.")
+        except:
+            failed += 1
+            await lol.edit(f"Assistant leaving... Left: {left} chats. Failed: {failed} chats.")
+        await asyncio.sleep(0.7)
+    await client.send_message(message.chat.id, f"Left {left} chats. Failed {failed} chats.")
 
 
 @Client.on_message(command(["userbotjoinchannel", "ubjoinc"]) & ~filters.private & ~filters.bot)

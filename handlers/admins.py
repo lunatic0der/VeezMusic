@@ -33,10 +33,8 @@ BACK_BUTTON = InlineKeyboardMarkup([[InlineKeyboardButton("🏠 Kembali", callba
 @Client.on_message(filters.command("reload"))
 async def update_admin(client, message):
     global admins
-    new_admins = []
     new_ads = await client.get_chat_members(message.chat.id, filter="administrators")
-    for u in new_ads:
-        new_admins.append(u.user.id)
+    new_admins = [u.user.id for u in new_ads]
     admins[message.chat.id] = new_admins
     await message.reply_text("✅ Bot **berhasil dimulai ulang!**\n\n• **Daftar admin** telah **diperbarui**")
 
@@ -303,7 +301,7 @@ async def temp_ban_user(_, message):
     if not is_admin:
         return
 
-    if not len(message.command) > 1:
+    if len(message.command) <= 1:
         return
 
     user_id, user_first_name = extract_user(message)
@@ -419,7 +417,7 @@ async def temp_mute_user(_, message):
     if not is_admin:
         return
 
-    if not len(message.command) > 1:
+    if len(message.command) <= 1:
         return
 
     user_id, user_first_name = extract_user(message)
