@@ -23,7 +23,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 @errors
 async def stream(_, message: Message):
 
-    lel = await message.reply("🔁 **processing** sound...")
+    lel = await message.reply("🔁 **Sedang Memproses...**")
     sender_id = message.from_user.id
     sender_name = message.from_user.first_name
 
@@ -31,10 +31,10 @@ async def stream(_, message: Message):
             [
                 [
                     InlineKeyboardButton(
-                        text="✨ ɢʀᴏᴜᴘ",
+                        text="⛑ Group",
                         url=f"https://t.me/{GROUP_SUPPORT}"),
                     InlineKeyboardButton(
-                        text="🌻 ᴄʜᴀɴɴᴇʟ",
+                        text="✨ Channel",
                         url=f"https://t.me/{UPDATES_CHANNEL}")
                 ]
             ]
@@ -46,7 +46,7 @@ async def stream(_, message: Message):
     if audio:
         if round(audio.duration / 60) > DURATION_LIMIT:
             raise DurationLimitError(
-                f"❌ Videos longer than {DURATION_LIMIT} minute(s) aren't allowed to play!"
+                f"❌ **Lagu dengan durasi lebih dari** `{DURATION_LIMIT}` **menit tidak dapat diputar!**"
             )
 
         file_name = get_file_name(audio)
@@ -57,7 +57,7 @@ async def stream(_, message: Message):
     elif url:
         file_path = await converter.convert(youtube.download(url))
     else:
-        return await lel.edit_text("❗ you did not give me audio file or yt link to stream!")
+        return await lel.edit_text("❗ **Berikan saya file audio atau link yt untuk streaming!**")
 
     if message.chat.id in callsmusic.pytgcalls.active_calls:
         position = await queues.put(message.chat.id, file=file_path)
@@ -65,7 +65,7 @@ async def stream(_, message: Message):
         await message.reply_photo(
         photo=f"{QUE_IMG}",
         reply_markup=keyboard,
-        caption=f"💡 Track added to the **queue**\n\n🔢 position: » `{position}` «\n🎧 request by: {costumer}\n\n⚡ __Powered by {bn} A.I__")
+        caption=f"💡 Track added to the **queue**\n\n🔢 position: » `{position}` «\n🎧 Atas Permintaan: {costumer}\n\n⚡ __Powered by {bn}__")
         return await lel.delete()
     else:
         callsmusic.pytgcalls.join_group_call(message.chat.id, file_path)
@@ -73,6 +73,6 @@ async def stream(_, message: Message):
         await message.reply_photo(
         photo=f"{AUD_IMG}",
         reply_markup=keyboard,
-        caption=f"💡 **Status**: `Playing`\n🎧 Request by: {costumer}\n\n⚡ __Powered by {bn} A.I__"
+        caption=f"💡 **Status**: `Sedang Memuptar`\n🎧 Atas Permintaan: {costumer}\n\n⚡ __Powered by {bn}__"
         )
         return await lel.delete()
