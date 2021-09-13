@@ -489,8 +489,8 @@ async def play(_, message: Message):
         keyboard = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton("📍 Group", url=f"https://t.me/{GROUP_SUPPORT}),
-                    InlineKeyboardButton("⛑ Channel", url=f"https://t.me/{UPDATES_CHANNEL})
+                    InlineKeyboardButton("📍 Group", url=f"https://t.me/{GROUP_SUPPORT}"),
+                    InlineKeyboardButton("⛑ Channel", url=f"https://t.me/{UPDATES_CHANNEL}")
                 ],
             ]
         )
@@ -534,8 +534,8 @@ async def play(_, message: Message):
         keyboard = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton("📍 Group", url=f"https://t.me/{GROUP_SUPPORT}),
-                    InlineKeyboardButton("⛑ Channel", url=f"https://t.me/{UPDATES_CHANNEL})
+                    InlineKeyboardButton("📍 Group", url=f"https://t.me/{GROUP_SUPPORT}"),
+                    InlineKeyboardButton("⛑ Channel", url=f"https://t.me/{UPDATES_CHANNEL}")
                 ],
             ]
         )
@@ -602,8 +602,8 @@ async def play(_, message: Message):
             keyboard = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton("📍 Group", url=f"https://t.me/{GROUP_SUPPORT}),
-                    InlineKeyboardButton("⛑ Channel", url=f"https://t.me/{UPDATES_CHANNEL})
+                    InlineKeyboardButton("📍 Group", url=f"https://t.me/{GROUP_SUPPORT}"),
+                    InlineKeyboardButton("⛑ Channel", url=f"https://t.me/{UPDATES_CHANNEL}")
                 ],
             ]
             )
