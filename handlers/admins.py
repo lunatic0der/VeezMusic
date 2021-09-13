@@ -30,7 +30,7 @@ async def _(bot: Client, cmd: Message):
 BACK_BUTTON = InlineKeyboardMarkup([[InlineKeyboardButton("🏠 Kembali", callback_data="cbback")]])
 
 
-@Client.on_message(filters.command("reload"))
+@Client.on_message(filters.command(["reload", f"reload@{BOT_USERNAME}"]) & other_filters)
 async def update_admin(client, message):
     global admins
     new_ads = await client.get_chat_members(message.chat.id, filter="administrators")
@@ -40,7 +40,7 @@ async def update_admin(client, message):
 
 
 # Control Menu Of Player
-@Client.on_message(command(["control", f"control@{BOT_USERNAME}", "p"]))
+@Client.on_message(command(["control", f"control@{BOT_USERNAME}"]) & other_filters)
 @errors
 @authorized_users_only
 async def controlset(_, message: Message):
@@ -160,8 +160,7 @@ async def skip(_, message: Message):
 async def authenticate(client, message):
     global admins
     if not message.reply_to_message:
-        await message.reply("❗ reply to message to authorize user!")
-        return
+        return await message.reply("❗ reply to message to authorize user!")
     if message.reply_to_message.from_user.id not in admins[message.chat.id]:
         new_admins = admins[message.chat.id]
         new_admins.append(message.reply_to_message.from_user.id)
@@ -176,8 +175,7 @@ async def authenticate(client, message):
 async def deautenticate(client, message):
     global admins
     if not message.reply_to_message:
-        await message.reply("❗ reply to message to deauthorize user!")
-        return
+        return await message.reply("❗ reply to message to deauthorize user!")
     if message.reply_to_message.from_user.id in admins[message.chat.id]:
         new_admins = admins[message.chat.id]
         new_admins.remove(message.reply_to_message.from_user.id)
@@ -185,7 +183,6 @@ async def deautenticate(client, message):
         await message.reply("🔴 user deauthorized.\n\nfrom now that's user can't use the admin commands.")
     else:
         await message.reply("✅ user already deauthorized!")
-
 
 # music player callbacks (control by buttons feature)
 
