@@ -39,10 +39,8 @@ async def delcmd(_, message: Message):
 @Client.on_message(filters.command(["reload", f"reload@{BOT_USERNAME}"]) & other_filters)
 async def update_admin(client, message):
     global admins
-    new_admins = []
     new_ads = await client.get_chat_members(message.chat.id, filter="administrators")
-    for u in new_ads:
-        new_admins.append(u.user.id)
+    new_admins = [u.user.id for u in new_ads]
     admins[message.chat.id] = new_admins
     await message.reply_text("✅ Bot **reloaded correctly !**\n✅ **Admin list** has been **updated !**")
 
@@ -205,11 +203,10 @@ async def delcmdc(_, message: Message):
     if status == "on":
         if await delcmd_is_on(message.chat.id):
             return await message.reply_text("✅ already activated")
-        else:
-            await delcmd_on(chat_id)
-            await message.reply_text(
-                "🟢 activated successfully"
-            )
+        await delcmd_on(chat_id)
+        await message.reply_text(
+            "🟢 activated successfully"
+        )
     elif status == "off":
         await delcmd_off(chat_id)
         await message.reply_text("🔴 disabled successfully")
