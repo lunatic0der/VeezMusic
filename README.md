@@ -22,12 +22,13 @@
 - [PyTgCalls](https://github.com/pytgcalls/pytgcalls)
 - [MongoDB](https://cloud.mongodb.com/)
 
-🧪 Get STRING_SESSION from below:
+### 🧪 Get STRING_SESSION from below:
 
-TAP THIS: [![GenerateString](https://img.shields.io/badge/repl.it-generateString-yellowgreen)](https://replit.com/@levinalab/StringSession#main.py)
+[![GenerateString](https://img.shields.io/badge/repl.it-generateString-yellowgreen)](https://replit.com/@levinalab/StringSession#main.py)
 
-🎖 History
-- [![Mentioned in Awesome Python](https://awesome.re/mentioned-badge.svg)](https://github.com/levina-lab/VeezMusic)
+### 🎖 History
+
+[![Mentioned in Awesome Python](https://awesome.re/mentioned-badge.svg)](https://github.com/levina-lab/VeezMusic)
 
 ## Features 🔮
 
@@ -97,25 +98,22 @@ The easy way to host this bot, deploy to Heroku
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/levina-lab/veezmusic)
 
-## Railway Deployment 🚄
-For deployment on railway you can see the full of [Necessary Variables Here](https://github.com/levina-lab/VeezMusic/blob/main/example.env), make sure you fill all of it.
+## VPS Deployment 📡
 
-[![Deploy+on+Railway](https://railway.app/button.svg)](https://railway.app/new/template?template=https://github.com/levina-lab/VeezMusic&envs=SESSION_NAME,BOT_TOKEN,BOT_USERNAME,BOT_NAME,GROUP_SUPPORT,ASSISTANT_NAME,OWNER_NAME,OWNER_ID,DATABASE_URL,LOG_CHANNEL,BROADCAST_AS_COPY,BG_IMAGE,UPDATES_CHANNEL,API_ID,API_HASH,PMPERMIT,SUDO_USERS,DURATION_LIMIT,THUMB_IMG)
-
-## Deploy On VPS 💜
-
-- `sudo apt update && apt upgrade -y`
-- `sudo apt install git curl python3-pip ffmpeg -y`
-- `pip3 install -U pip`
-- `curl -sL https://deb.nodesource.com/setup_16.x | bash -`
-- `sudo apt-get install -y nodejs`
-- `npm i -g npm`
-- `git clone https://github.com/levina-lab/VeezMusic` # Clone your repo.
-- `cd VeezMusic`
-- `pip3 install -U -r requirements.txt`
-- `cp example.env .env` #Use vim to edit ENVs
-- `vim .env` #Fill up your ENVs ( Steps press `i` to enter in insert mode then edit the file. Press `Esc` to exit the editing mode then type `:wq!` and press `Enter` key to save the file.)
-- `python3 main.py` # Run the bot
+```sh
+sudo apt update && apt upgrade -y
+sudo apt install git curl python3-pip ffmpeg -y
+pip3 install -U pip
+curl -sL https://deb.nodesource.com/setup_16.x | bash -
+sudo apt-get install -y nodejs
+npm i -g npm
+git clone https://github.com/levina-lab/VeezMusic # Clone your repo.
+cd VeezMusic
+pip3 install -U -r requirements.txt
+cp example.env .env #Use vim to edit ENVs
+vim .env #Fill up your ENVs ( Steps press i to enter in insert mode then edit the file. Press Esc to exit the editing mode then type :wq! and press Enter key to save the file.)
+python3 main.py # Run the bot
+```
 
 ### Special Credits 💖
 - [Levina](https://github.com/levina-lab): Dev

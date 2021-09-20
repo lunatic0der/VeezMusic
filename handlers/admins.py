@@ -184,8 +184,8 @@ async def deautenticate(client, message):
     else:
         await message.reply("✅ user already deauthorized!")
 
+        
 # music player callbacks (control by buttons feature)
-
 @Client.on_callback_query(filters.regex("cbpause"))
 @cb_admin_check
 async def cbpause(_, query: CallbackQuery):
