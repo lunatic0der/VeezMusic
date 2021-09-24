@@ -17,6 +17,18 @@ async def clear_downloads(_, message: Message):
     if ls_dir:
         for file in os.listdir(downloads):
             os.remove(os.path.join(downloads, file))
-        await message.reply_text("✅ **removed all downloaded files**")
+        await message.reply_text("✅ **Menghapus semua file yang didownload**")
     else:
-        await message.reply_text("❌ **no files is downloaded**")
+        await message.reply_text("❌ **Tidak ada file yang didownload**")
+        
+@Client.on_message(command(["clean", "wipe", "rmr"]) & ~filters.edited)
+@errors
+@sudo_users_only
+async def clear_raw(_, message: Message):
+    ls_dir = os.listdir(raw)
+    if ls_dir:
+        for file in os.listdir(raw):
+            os.remove(os.path.join(raw, file))
+        await message.reply_text("✅ **Menghapus semua File RAW**")
+    else:
+        await message.reply_text("❌ **Tidak ada file RAW**")
